@@ -12,9 +12,9 @@ using namespace std;
 int main(){
     int sharedMemoryID = shmget(ftok(".", SHM_KEY), SHM_SIZE, IPC_CREAT | 0666);
     char* sharedMemoryPointer = (char *)shmat(sharedMemoryID, NULL, 0);
-    strcpy(sharedMemoryPointer, "Hello, shared memory!");
-    if(fork() == 0){
-        cout<<"Child reads: "<<sharedMemoryPointer<<endl;
+    strcpy(sharedMemoryPointer, "Hello from shared memory!");
+    if(fork()==0){
+        cout<<"Child: "<<sharedMemoryPointer<<endl;
         shmdt(sharedMemoryPointer);
     } else {
         wait(NULL);
